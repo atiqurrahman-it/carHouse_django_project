@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'carzone_page_app.apps.CarzonePageAppConfig',
     'car_app.apps.CarAppConfig',
+    # 3rd party app
+    'ckeditor',
+    # 'ckeditor_uploader',
+    'multiselectfield'
+
 ]
 
 MIDDLEWARE = [
@@ -125,4 +130,18 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # upload file store
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # upload file store
+
+
+##  CKEDITOR CONFIGURATION ##
+
+# SITE_ID = 1
+# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+# CKEDITOR_UPLOAD_PATH = 'uploads/'
+# CKEDITOR_IMAGE_BACKEND = "pillow"
+#
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': None,
+#     },
+# }
