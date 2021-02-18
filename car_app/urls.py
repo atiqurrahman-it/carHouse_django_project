@@ -12,6 +12,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('car/', views.Car, name='car')
+    path('car/', views.Car, name='car'),
+    path('single_page/<int:id>/', views.Car_details, name='car_details')
 
 ]

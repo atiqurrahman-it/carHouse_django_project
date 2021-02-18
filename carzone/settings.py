@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     # 3rd party app
     'ckeditor',
     # 'ckeditor_uploader',
-    'multiselectfield'
+    'multiselectfield',
+    'django.contrib.humanize',
 
 ]
 

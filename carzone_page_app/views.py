@@ -9,7 +9,7 @@ from car_app .models import Cars
 def Home_page(request):
     total_team = Teams.objects.all()
     features_car = Cars.objects.order_by('-create_data').filter(is_features=True)
-    total_car = Cars.objects.order_by('-create_data')
+    total_car = Cars.objects.order_by('-create_data')[:9]
     data = {
         "total_team": total_team,
         "features_car": features_car,
