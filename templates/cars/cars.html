@@ -29,7 +29,11 @@
                         <div class="car-box-3">
                             <div class="car-thumbnail">
                                 <a href="{% url 'car_details' id=c.id %}" class="car-img">
-                                    <div class="tag">For Rent</div>
+                                    {% if c.is_features %}
+                                      <div class="tag">For Sal</div>
+                                    {% else %}
+                                     <div class="tag-2 bg-active">Featured</div>
+                                    {% endif %}
                                     <div class="price-box">
                                         <span>${{c.price |intcomma }} </span>
                                     </div>
@@ -94,17 +98,41 @@
                 <!-- Page navigation start -->
                 <div class="pagination-box p-box-2 text-center">
                     <nav aria-label="Page navigation example">
+                         {% if t_car.has_other_pages %}
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
-                            </li>
-                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
-                            </li>
+                            {% if t_car.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ t_car.previous_page_number }}"><i
+                                            class="fa fa-angle-left"></i></a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link"><i class="fa fa-angle-left"></i></a>
+                                </li>
+                            {% endif %}
+
+                           {% for i in t_car.paginator.page_range %}
+                             {% if t_car.number == i %}
+                            <li class="page-item"><a class="page-link active" href="#">{{ i }}</a></li>
+                             {% else %}
+                               <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                              {% endfor %}
+
+
+                                 {% if t_car.has_next %}
+                                     <li class="page-item">
+                                         <a class="page-link" href="?page={{ t_car.next_page_number }}"><i
+                                                 class="fa fa-angle-right"></i></a>
+                                     </li>
+                                 {% else %}
+                                     <li class="page-item disabled">
+                                         <a class="page-link"><i class="fa fa-angle-right"></i></a>
+                                     </li>
+                                 {% endif %}
+
                         </ul>
+                        {% endif %}
                     </nav>
                 </div>
             </div>
@@ -113,66 +141,54 @@
                     <!-- Advanced search start -->
                     <div class="widget advanced-search2">
                         <h3 class="sidebar-title">Search your desire car</h3>
-                        <form method="GET">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="brand">
-                                    <option>Brand</option>
-                                    <option>Any</option>
-                                    <option>New</option>
-                                    <option>Semi-New</option>
-                                    <option>Damaged</option>
-                                    <option>Used</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="location">
-                                    <option>Location</option>
-                                    <option>United States</option>
-                                    <option>United Kingdom</option>
-                                    <option>American Samoa</option>
-                                    <option>Belgium</option>
-                                    <option>Cameroon</option>
-                                    <option>Canada</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="year">
-                                    <option>Year</option>
-                                    <option>2016</option>
-                                    <option>2017</option>
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="category">
-                                    <option>Category</option>
-                                    <option>Luxury Car</option>
-                                    <option>Pickup Truck</option>
-                                    <option>Minivan</option>
-                                    <option>Truck</option>
-                                    <option>Sports Car</option>
-                                    <option>Wagon</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="transmission">
-                                    <option>Transmission</option>
-                                    <option>Automatic</option>
-                                    <option>Manual</option>
-                                    <option>Tiptronic</option>
-                                </select>
-                            </div>
-                            <div class="range-slider clearfix">
+                         <form action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="keyword_search" placeholder="Search by name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="search_model">
+                        <option selected="true" disabled="disabled">Model</option>
+                        {% for models in model_search %}
+                            <option value="{{ models }}">{{ models }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="search_city">
+                        <option selected="true" disabled="disabled">Location</option>
+                         {% for location in city_search %}
+                            <option value="{{ location }}">{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="search_year">
+                        <option selected="true" disabled="disabled">Year</option>
+                          {% for years in year_search %}
+                            <option value="{{ years }}">{{ years }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control search-fields" name="search_body_type">
+                        <option selected="true" disabled="disabled">Select Type Of Car</option>
+                          {% for type_of_car in body_style_search %}
+                            <option value="{{ type_of_car }}">{{ type_of_car }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="range-slider clearfix">
                                 <label>Price</label>
                                 <div data-min="0" data-max="150000"  data-min-name="min_price" data-max-name="max_price" data-unit="USD" class="range-slider-ui ui-slider" aria-disabled="false"></div>
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="form-group mb-0">
-                                <button class="search-button btn">Search</button>
-                            </div>
-                        </form>
+                <div class="form-group">
+                    <button class="btn btn-block button-theme btn-md">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
                     </div>
 
                     <!-- Question start -->
