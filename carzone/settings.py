@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'carzone_page_app.apps.CarzonePageAppConfig',
     'car_app.apps.CarAppConfig',
+    'accounts_app.apps.AccountsAppConfig',
     # 3rd party app
     'ckeditor',
     # 'ckeditor_uploader',
