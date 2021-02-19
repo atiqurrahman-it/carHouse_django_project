@@ -13,5 +13,8 @@ from . import views
 
 urlpatterns = [
     path('login/', views.Login_page, name='login'),
+    path('logout/', views.Logout_page, name='logout'),
+    path('register/', views.Register_page, name='register'),
+    path('dashboard/', views.Dashboard_page, name='dashboard'),
 
 ]
