@@ -134,7 +134,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # upload file store
 
-
 ##  CKEDITOR CONFIGURATION ##
 
 # SITE_ID = 1
@@ -147,3 +146,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # upload file store
 #         'toolbar': None,
 #     },
 # }
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}
