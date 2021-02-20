@@ -24,6 +24,7 @@ urlpatterns = [
                   path('', include('carzone_page_app.urls')),
                   path('car_app/', include('car_app.urls')),
                   path('accounts_app/', include('accounts_app.urls')),
+                  path('accounts/', include('allauth.urls')),
                   # path('ckeditor/', include('ckeditor_uploader.urls')),
               ]
 

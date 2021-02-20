@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = 'dashboard'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +42,16 @@ INSTALLED_APPS = [
     'accounts_app.apps.AccountsAppConfig',
     # 3rd party app
     'ckeditor',
+    # login with social media:
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # .include the providers you want to enable(social media):
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
     # 'ckeditor_uploader',
     'multiselectfield',
     'django.contrib.humanize',
@@ -148,7 +160,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # upload file store
 # }
 
 from django.contrib.messages import constants as messages
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
+
+# login with social median
+SITE_ID = 1
