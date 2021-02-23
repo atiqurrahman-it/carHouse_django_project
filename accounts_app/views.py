@@ -17,7 +17,7 @@ def Login_page(request):
             messages.success(request, ' successfully login ')
             return redirect('dashboard')
         else:
-            messages.error(request, 'Username or password incorrect !')
+            messages.success(request, 'Username or password incorrect !')
             return redirect('login')
 
     return render(request, 'accounts/login.html')

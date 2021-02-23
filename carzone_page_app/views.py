@@ -1,7 +1,12 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 
 from .models import Teams
 from car_app.models import Cars
+
+from contact_app.models import Contact_me
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.core.mail import send_mail, BadHeaderError
 
 
 # Create your views here.
@@ -41,4 +46,25 @@ def Services_page(request):
 
 
 def Contact_page(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        data = Contact_me(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
+        admin_info = User.objects.get(is_superuser=True)
+        admin_email = admin_info.email
+        form_email = email
+        if subject and message and form_email:
+            try:
+                send_mail(subject, message, form_email, [admin_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            data.save()
+            messages.success(request, 'Thanks for contact Us !')
+            return redirect('contact')
+        else:
+            return HttpResponse('Make sure all fields are entered and valid.')
+
     return render(request, 'pages/contact.html')

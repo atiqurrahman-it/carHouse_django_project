@@ -19,3 +19,14 @@ class Inquiry_Contact(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Contact_me(models.Model):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    subject = models.CharField(max_length=250)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return self.first_name

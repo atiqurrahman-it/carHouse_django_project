@@ -25,18 +25,20 @@
             <h1>Contact <span>Us</span></h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
         </div>
-        <form action="#" method="POST" enctype="multipart/form-data">
+        {% include 'include/messages.html' %}
+        <form action="{% url 'contact' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="row">
                 <div class="col-lg-7">
                     <div class="row">
                         <div class="col-md-6 text-left">
                             <div class="form-group name">
-                                <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                                <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group email">
-                                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                              <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -46,12 +48,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group number">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group message">
-                                <textarea class="form-control" name="message" placeholder="Write message"></textarea>
+                                <textarea class="form-control" name="message" required placeholder="Write message"></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
