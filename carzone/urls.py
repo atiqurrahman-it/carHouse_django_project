@@ -24,8 +24,9 @@ urlpatterns = [
                   path('', include('carzone_page_app.urls')),
                   path('car_app/', include('car_app.urls')),
                   path('accounts_app/', include('accounts_app.urls')),
-                  path('accounts/', include('allauth.urls')),
+                  path('contact_app/', include('contact_app.urls')),
                   # path('ckeditor/', include('ckeditor_uploader.urls')),
+                  path('accounts/', include('allauth.urls')),
               ]
 
 if settings.DEBUG:

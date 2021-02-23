@@ -25,10 +25,9 @@ SECRET_KEY = '_wp6s33yj_#7_(z)hr-t9dfwy1==_h57&!hnagl!f4c+5h3i2d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 LOGIN_REDIRECT_URL = 'dashboard'
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'carzone_page_app.apps.CarzonePageAppConfig',
     'car_app.apps.CarAppConfig',
     'accounts_app.apps.AccountsAppConfig',
+    'contact_app.apps.ContactAppConfig',
     # 3rd party app
     'ckeditor',
     # login with social media:
@@ -57,6 +57,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
 ]
+
+# login with social median
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,6 +87,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# django-allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 WSGI_APPLICATION = 'carzone.wsgi.application'
@@ -166,5 +176,10 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
 }
 
-# login with social median
-SITE_ID = 1
+# send mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'studyquery.check@gmail.com'
+EMAIL_HOST_PASSWORD = 'mdatiqurrahman'

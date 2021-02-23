@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from contact_app.models import Inquiry_Contact
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -58,5 +60,10 @@ def Register_page(request):
     # messages.error(request, 'Email or password invalid !')
 
 
+@login_required(login_url='login')
 def Dashboard_page(request):
-    return render(request, 'accounts/Dashboard.html')
+    user_inquiry = Inquiry_Contact.objects.order_by('-create_data').filter(user_id=request.user.id)
+    data = {
+        "user_inquiry": user_inquiry,
+    }
+    return render(request, 'accounts/Dashboard.html', data)
