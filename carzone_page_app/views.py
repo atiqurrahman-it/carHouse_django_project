@@ -56,15 +56,18 @@ def Contact_page(request):
         admin_info = User.objects.get(is_superuser=True)
         admin_email = admin_info.email
         form_email = email
-        if subject and message and form_email:
-            try:
-                send_mail(subject, message, form_email, [admin_email])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            data.save()
-            messages.success(request, 'Thanks for contact Us !')
-            return redirect('contact')
-        else:
-            return HttpResponse('Make sure all fields are entered and valid.')
+        messages.success(request, 'Thanks for contact Us !')
+        return redirect('contact')
+
+        # if subject and message and form_email:
+        #     try:
+        #         send_mail(subject, message, form_email, [admin_email])
+        #     except BadHeaderError:
+        #         return HttpResponse('Invalid header found.')
+        #     data.save()
+        #     messages.success(request, 'Thanks for contact Us !')
+        #     return redirect('contact')
+        # else:
+        #     return HttpResponse('Make sure all fields are entered and valid.')
 
     return render(request, 'pages/contact.html')

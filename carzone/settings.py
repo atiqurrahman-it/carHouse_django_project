@@ -1,6 +1,8 @@
-
+# first e add 
 import os
 from pathlib import Path
+
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,7 +16,7 @@ SECRET_KEY = '_wp6s33yj_#7_(z)hr-t9dfwy1==_h57&!hnagl!f4c+5h3i2d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -66,7 +68,7 @@ ROOT_URLCONF = 'carzone.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,6 +152,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'carzone/static'),  # static file store
 )
 
+
+# Enable WhiteNoise's GZip compression of static assets.
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # upload file store
 
@@ -179,4 +185,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'studyquery.check@gmail.com'
-EMAIL_HOST_PASSWORD = 'mdatiqurrahman'
+EMAIL_HOST_PASSWORD = ''
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# last e add hobe 
+django_heroku.settings(locals())
+
